@@ -11,7 +11,7 @@ local label = Instance.new("TextLabel")
 label.Name = "PowerReadout"
 label.AnchorPoint = Vector2.new(0, 0)
 label.Position = UDim2.fromOffset(20, 20)
-label.Size = UDim2.fromOffset(320, 92)
+label.Size = UDim2.fromOffset(360, 122)
 label.BackgroundTransparency = 0.18
 label.BackgroundColor3 = Color3.fromRGB(20, 22, 26)
 label.BorderSizePixel = 0
@@ -32,11 +32,13 @@ padding.Parent = label
 local function updateReadout()
 	local powerWatts = cyclist:GetAttribute("PowerWatts") or 0
 	local speed = cyclist:GetAttribute("SpeedStudsPerSecond") or 0
+	local distance = cyclist:GetAttribute("DistanceStuds") or 0
 	local bridgeConnected = cyclist:GetAttribute("BridgeConnected")
 	local status = cyclist:GetAttribute("BridgeStatus") or "waiting"
 	local bridgeLabel = if bridgeConnected then "connected" else "fallback"
 
-	label.Text = `Power: {powerWatts} W\nSpeed: {speed} studs/s\nBridge: {bridgeLabel} - {status}`
+	label.Text =
+		`STABLE HUD v5\nPower: {powerWatts} W\nSpeed: {speed} studs/s\nDistance: {distance} studs\nBridge: {bridgeLabel} - {status}`
 end
 
 updateReadout()

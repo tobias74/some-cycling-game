@@ -60,11 +60,13 @@ local function setModelAttributes(
 	model: Model,
 	powerWatts: number,
 	speed: number,
+	distance: number,
 	ok: boolean,
 	status: string
 )
 	model:SetAttribute("PowerWatts", math.floor(powerWatts + 0.5))
 	model:SetAttribute("SpeedStudsPerSecond", math.floor(speed * 10 + 0.5) / 10)
+	model:SetAttribute("DistanceStuds", math.floor(distance * 10 + 0.5) / 10)
 	model:SetAttribute("BridgeConnected", ok)
 	model:SetAttribute("BridgeStatus", status)
 end
@@ -228,7 +230,7 @@ function CyclistRigService:_createRig()
 	)
 
 	self:_render()
-	setModelAttributes(self.model, 0, 0, false, self.bridgeStatus)
+	setModelAttributes(self.model, 0, 0, 0, false, self.bridgeStatus)
 end
 
 function CyclistRigService:_start()
@@ -246,6 +248,7 @@ function CyclistRigService:_start()
 			self.model,
 			self.powerWatts,
 			self.speedStudsPerSecond,
+			self.distanceStuds,
 			self.bridgeOk,
 			self.bridgeStatus
 		)
