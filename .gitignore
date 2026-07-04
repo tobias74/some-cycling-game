@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+
+# Roblox / Rojo generated files
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+sourcemap.json
+
+# Package output
+Packages/
+
+# Tool caches
+.lune/
+.vscode/.ropeproject/
