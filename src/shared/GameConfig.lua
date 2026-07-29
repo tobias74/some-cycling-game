@@ -13,8 +13,7 @@ local GameConfig = {
 		MaxPowerWatts = 1000,
 	},
 
-	Cyclist = {
-		SpawnCFrame = CFrame.new(0, 1.25, 0),
+	Rider = {
 		BaseSpeedStudsPerSecond = 2,
 		MaxSpeedStudsPerSecond = 48,
 		WattsForMaxSpeed = 600,

@@ -8,14 +8,13 @@ function PowerMath.clampPowerWatts(powerWatts: number, maxPowerWatts: number): n
 	return math.clamp(powerWatts, 0, maxPowerWatts)
 end
 
-function PowerMath.powerToSpeedStudsPerSecond(powerWatts: number, cyclistConfig): number
-	local wattsForMaxSpeed = math.max(cyclistConfig.WattsForMaxSpeed, 1)
+function PowerMath.powerToSpeedStudsPerSecond(powerWatts: number, riderConfig): number
+	local wattsForMaxSpeed = math.max(riderConfig.WattsForMaxSpeed, 1)
 	local normalized = math.clamp(powerWatts / wattsForMaxSpeed, 0, 1)
 	local curved = normalized ^ 0.65
 
-	return cyclistConfig.BaseSpeedStudsPerSecond
-		+ (cyclistConfig.MaxSpeedStudsPerSecond - cyclistConfig.BaseSpeedStudsPerSecond)
-			* curved
+	return riderConfig.BaseSpeedStudsPerSecond
+		+ (riderConfig.MaxSpeedStudsPerSecond - riderConfig.BaseSpeedStudsPerSecond) * curved
 end
 
 function PowerMath.approach(current: number, target: number, maxDelta: number): number

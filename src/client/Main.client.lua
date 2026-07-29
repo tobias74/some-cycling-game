@@ -1,11 +1,13 @@
-local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
-local cyclist = Workspace:WaitForChild("BleCyclist")
+local localPlayer = Players.LocalPlayer
+local rideDirection = Vector3.new(1, 0, 0)
 
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "CyclistHud"
+screenGui.Name = "PowerHud"
 screenGui.ResetOnSpawn = false
-screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+screenGui.Parent = localPlayer:WaitForChild("PlayerGui")
 
 local label = Instance.new("TextLabel")
 label.Name = "PowerReadout"
@@ -30,16 +32,32 @@ padding.PaddingLeft = UDim.new(0, 12)
 padding.Parent = label
 
 local function updateReadout()
-	local powerWatts = cyclist:GetAttribute("PowerWatts") or 0
-	local speed = cyclist:GetAttribute("SpeedStudsPerSecond") or 0
-	local distance = cyclist:GetAttribute("DistanceStuds") or 0
-	local bridgeConnected = cyclist:GetAttribute("BridgeConnected")
-	local status = cyclist:GetAttribute("BridgeStatus") or "waiting"
+	local powerWatts = localPlayer:GetAttribute("PowerWatts") or 0
+	local speed = localPlayer:GetAttribute("SpeedStudsPerSecond") or 0
+	local distance = localPlayer:GetAttribute("DistanceStuds") or 0
+	local bridgeConnected = localPlayer:GetAttribute("BridgeConnected")
+	local status = localPlayer:GetAttribute("BridgeStatus") or "waiting"
 	local bridgeLabel = if bridgeConnected then "connected" else "fallback"
 
 	label.Text =
-		`STABLE HUD v5\nPower: {powerWatts} W\nSpeed: {speed} studs/s\nDistance: {distance} studs\nBridge: {bridgeLabel} - {status}`
+		`POWER RIDER\nPower: {powerWatts} W\nSpeed: {speed} studs/s\nDistance: {distance} studs\nBridge: {bridgeLabel} - {status}`
 end
 
 updateReadout()
-cyclist.AttributeChanged:Connect(updateReadout)
+localPlayer.AttributeChanged:Connect(updateReadout)
+
+RunService:BindToRenderStep("PowerRideMovement", Enum.RenderPriority.Input.Value + 1, function()
+	local character = localPlayer.Character
+
+	if not character then
+		return
+	end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+	if not humanoid or humanoid.Health <= 0 then
+		return
+	end
+
+	humanoid:Move(rideDirection, false)
+end)
