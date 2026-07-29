@@ -19,6 +19,19 @@ local GameConfig = {
 		WattsForMaxSpeed = 600,
 		AccelerationStudsPerSecond = 18,
 	},
+
+	Track = {
+		Center = Vector3.new(0, 0, 0),
+		StraightLengthStuds = 140,
+		CurveRadiusStuds = 52,
+		WidthStuds = 24,
+		SurfaceY = 0.4,
+		SurfaceThicknessStuds = 0.4,
+		CurveSegments = 32,
+		LaneCount = 3,
+		FollowLookAheadStuds = 7,
+		MaxCenterlineDriftStuds = 6,
+	},
 }
 
 return GameConfig

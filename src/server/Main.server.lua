@@ -3,7 +3,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local GameConfig = require(ReplicatedStorage.Shared.GameConfig)
 local BleBridgeClient = require(script.Parent.Services.BleBridgeClient)
 local PlayerRideService = require(script.Parent.Services.PlayerRideService)
+local TrackService = require(script.Parent.Services.TrackService)
 
+TrackService.new(GameConfig.Track)
 local playerRide = PlayerRideService.new(GameConfig.Rider)
 
 BleBridgeClient.startPolling(GameConfig.BleBridge, function(sample)
